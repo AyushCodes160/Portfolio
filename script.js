@@ -1,6 +1,7 @@
 // portfolio — Ayush Kumar
 
 const { gsap } = window;
+gsap.registerPlugin(window.ScrollTrigger);
 
 /* ---------- loader ---------- */
 const loader = document.querySelector("[data-loader]");
@@ -27,6 +28,7 @@ if (loader) {
 
 /* ---------- smooth scroll ---------- */
 const lenis = new window.Lenis({ duration: 1.1, easing: t => Math.min(1, 1.001 - Math.pow(2, -10 * t)) });
+lenis.on("scroll", window.ScrollTrigger.update);
 gsap.ticker.add(t => lenis.raf(t * 1000));
 gsap.ticker.lagSmoothing(0);
 
@@ -75,4 +77,14 @@ function bootSite() {
 
   const track = document.querySelector(".marquee__track");
   if (track) gsap.to(track, { xPercent: -50, duration: 28, repeat: -1, ease: "none" });
+
+  gsap.utils.toArray(".reveal").forEach(el => {
+    gsap.to(el, { opacity: 1, y: 0, duration: 1.1, ease: "expo.out",
+      scrollTrigger: { trigger: el, start: "top 85%" } });
+  });
+
+  gsap.utils.toArray(".about__label").forEach(el => {
+    gsap.from(el, { opacity: 0, y: 12, duration: .8, ease: "power3.out",
+      scrollTrigger: { trigger: el, start: "top 90%" } });
+  });
 }
