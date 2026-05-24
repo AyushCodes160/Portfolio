@@ -47,12 +47,14 @@ gsap.ticker.lagSmoothing(0);
 const cursor = document.querySelector("[data-cursor]");
 const cx = { v: window.innerWidth / 2 };
 const cy = { v: window.innerHeight / 2 };
-let tx = cx.v, ty = cy.v;
+let tx = cx.v, ty = cy.v, lastTx = tx, lastTy = ty, mvx = 0, mvy = 0;
 window.addEventListener("mousemove", e => { tx = e.clientX; ty = e.clientY; });
 gsap.ticker.add(() => {
   cx.v += (tx - cx.v) * 0.18;
   cy.v += (ty - cy.v) * 0.18;
   if (cursor) cursor.style.transform = `translate(${cx.v}px,${cy.v}px)`;
+  mvx = tx - lastTx; mvy = ty - lastTy;
+  lastTx = tx; lastTy = ty;
 });
 
 document.querySelectorAll("a, button, [data-magnet]").forEach(el => {
@@ -111,7 +113,147 @@ function bootSite() {
     });
   });
 
+  initHeroReveal();
   initThree();
+  initWorkHover();
+}
+
+/* ---------- hero cursor spotlight reveal ---------- */
+function initHeroReveal() {
+  const wrap = document.querySelector(".hero__title-wrap");
+  const reveal = document.querySelector("[data-headline-reveal]");
+  if (!wrap || !reveal) return;
+  gsap.from(".hero__title--reveal .word__inner", { yPercent: 110, duration: 1.1, stagger: 0.06, ease: "expo.out" });
+
+  let rx = 0, ry = 0, trx = 0, tryy = 0, active = false;
+  const RAD = 160;
+  wrap.addEventListener("pointermove", e => {
+    const r = wrap.getBoundingClientRect();
+    trx = e.clientX - r.left;
+    tryy = e.clientY - r.top;
+    active = true;
+  });
+  wrap.addEventListener("pointerleave", () => { active = false; });
+
+  gsap.ticker.add(() => {
+    rx += (trx - rx) * .18;
+    ry += (tryy - ry) * .18;
+    const rad = active ? RAD : 0;
+    reveal.style.clipPath = `circle(${rad}px at ${rx}px ${ry}px)`;
+    reveal.style.webkitClipPath = `circle(${rad}px at ${rx}px ${ry}px)`;
+  });
+}
+
+/* ---------- work hover WebGL preview ---------- */
+function initWorkHover() {
+  const host = document.querySelector("[data-hover-preview]");
+  const canvas = document.querySelector("[data-hover-canvas]");
+  const list = document.querySelector("[data-work-list]");
+  if (!host || !canvas || !list) return;
+
+  const W = 360, H = 260;
+  const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  renderer.setSize(W, H, false);
+  const scene = new THREE.Scene();
+  const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 10);
+  camera.position.z = 1;
+
+  const texLoader = new THREE.TextureLoader();
+  texLoader.crossOrigin = "anonymous";
+  const textures = new Map();
+
+  const uniforms = {
+    uTex: { value: null },
+    uTime: { value: 0 },
+    uVel: { value: new THREE.Vector2() },
+    uOpacity: { value: 0 },
+    uAspectImg: { value: 1.33 },
+    uAspectPlane: { value: W / H },
+  };
+  const mat = new THREE.ShaderMaterial({
+    uniforms,
+    transparent: true,
+    vertexShader: `
+      varying vec2 vUv;
+      uniform float uTime;
+      uniform vec2 uVel;
+      void main(){
+        vUv = uv;
+        vec3 p = position;
+        p.x += sin(uv.y * 7.0 + uTime * 1.6) * uVel.x * 0.02;
+        p.y += cos(uv.x * 7.0 + uTime * 1.6) * uVel.y * 0.02;
+        gl_Position = projectionMatrix * modelViewMatrix * vec4(p, 1.0);
+      }
+    `,
+    fragmentShader: `
+      varying vec2 vUv;
+      uniform sampler2D uTex;
+      uniform vec2 uVel;
+      uniform float uOpacity;
+      uniform float uAspectImg;
+      uniform float uAspectPlane;
+      void main(){
+        vec2 uv = vUv;
+        float r = uAspectImg / uAspectPlane;
+        if (r > 1.0) {
+          uv.x = (uv.x - 0.5) / r + 0.5;
+        } else {
+          uv.y = (uv.y - 0.5) * r + 0.5;
+        }
+        float amt = 0.004 + min(length(uVel) * 0.0008, 0.025);
+        vec4 cr = texture2D(uTex, uv + vec2(amt, 0.0));
+        vec4 cg = texture2D(uTex, uv);
+        vec4 cb = texture2D(uTex, uv - vec2(amt, 0.0));
+        gl_FragColor = vec4(cr.r, cg.g, cb.b, cg.a) * uOpacity;
+      }
+    `
+  });
+  const mesh = new THREE.Mesh(new THREE.PlaneGeometry(2, 2, 24, 16), mat);
+  scene.add(mesh);
+
+  function setTexture(url) {
+    if (!url) return;
+    if (textures.has(url)) {
+      const t = textures.get(url);
+      uniforms.uTex.value = t;
+      uniforms.uAspectImg.value = (t.image.width || 4) / (t.image.height || 3);
+      return;
+    }
+    texLoader.load(url, t => {
+      t.colorSpace = THREE.SRGBColorSpace;
+      textures.set(url, t);
+      uniforms.uTex.value = t;
+      uniforms.uAspectImg.value = (t.image.width || 4) / (t.image.height || 3);
+    });
+  }
+
+  list.querySelectorAll(".proj").forEach(p => {
+    const url = p.dataset.image;
+    if (url) texLoader.load(url, t => { t.colorSpace = THREE.SRGBColorSpace; textures.set(url, t); });
+  });
+
+  list.querySelectorAll(".proj").forEach(p => {
+    p.addEventListener("pointerenter", () => {
+      setTexture(p.dataset.image);
+      host.classList.add("is-on");
+      gsap.to(uniforms.uOpacity, { value: 1, duration: .35, ease: "power3.out" });
+    });
+    p.addEventListener("pointerleave", () => {
+      host.classList.remove("is-on");
+      gsap.to(uniforms.uOpacity, { value: 0, duration: .25, ease: "power3.in" });
+    });
+  });
+
+  let hx = -200, hy = -200;
+  gsap.ticker.add(() => {
+    hx += (tx - hx) * 0.12;
+    hy += (ty - hy) * 0.12;
+    host.style.transform = `translate(${hx}px, ${hy}px) translate(-50%, -50%)`;
+    uniforms.uVel.value.set(mvx, mvy);
+    uniforms.uTime.value += 0.016;
+    renderer.render(scene, camera);
+  });
 }
 
 /* ---------- three.js — stack scene ---------- */

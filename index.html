@@ -26,6 +26,10 @@
     <div class="cursor__ring"></div>
   </div>
 
+  <div class="hover-preview" data-hover-preview>
+    <canvas data-hover-canvas></canvas>
+  </div>
+
   <div class="grain" aria-hidden="true"></div>
 
   <div class="loader" data-loader>
@@ -71,14 +75,24 @@
         <span class="tag tag--mono">N 18.52° · E 73.86°</span>
       </div>
 
-      <h1 class="hero__title">
-        <span class="word"><span class="word__inner">Building</span></span>
-        <span class="word"><span class="word__inner"><em>real-time</em></span></span>
-        <span class="word"><span class="word__inner">AI</span></span>
-        <span class="word"><span class="word__inner">tools</span></span>
-        <span class="word"><span class="word__inner">that</span></span>
-        <span class="word"><span class="word__inner">ship.</span></span>
-      </h1>
+      <div class="hero__title-wrap">
+        <h1 class="hero__title" data-headline>
+          <span class="word"><span class="word__inner">Building</span></span>
+          <span class="word"><span class="word__inner"><em>real-time</em></span></span>
+          <span class="word"><span class="word__inner">AI</span></span>
+          <span class="word"><span class="word__inner">tools</span></span>
+          <span class="word"><span class="word__inner">that</span></span>
+          <span class="word"><span class="word__inner">ship.</span></span>
+        </h1>
+        <h1 class="hero__title hero__title--reveal" aria-hidden="true" data-headline-reveal>
+          <span class="word"><span class="word__inner">Building</span></span>
+          <span class="word"><span class="word__inner"><em>real-time</em></span></span>
+          <span class="word"><span class="word__inner">AI</span></span>
+          <span class="word"><span class="word__inner">tools</span></span>
+          <span class="word"><span class="word__inner">that</span></span>
+          <span class="word"><span class="word__inner">ship.</span></span>
+        </h1>
+      </div>
 
       <div class="hero__foot">
         <div class="hero__role">
@@ -150,7 +164,7 @@
     </div>
 
     <ol class="work__list" data-work-list>
-      <li class="proj">
+      <li class="proj" data-image="https://picsum.photos/seed/askmysource/900/680">
         <a href="#" class="proj__link">
           <span class="proj__no">01</span>
           <span class="proj__title">AskMySource</span>
@@ -159,7 +173,7 @@
         </a>
         <div class="proj__hover"><span>Multimodal RAG over Git repos, PDFs, and URLs. FastAPI + FAISS, local TinyLlama inference.</span></div>
       </li>
-      <li class="proj">
+      <li class="proj" data-image="https://picsum.photos/seed/pokedex/900/680">
         <a href="#" class="proj__link">
           <span class="proj__no">02</span>
           <span class="proj__title">Pokedex</span>
@@ -168,7 +182,7 @@
         </a>
         <div class="proj__hover"><span>Turn-based battle simulator with type effectiveness, status effects, JWT auth, and a PokéAPI-driven opponent.</span></div>
       </li>
-      <li class="proj">
+      <li class="proj" data-image="https://picsum.photos/seed/voiceagent/900/680">
         <a href="#" class="proj__link">
           <span class="proj__no">03</span>
           <span class="proj__title">Voice AI Agent</span>
@@ -177,7 +191,7 @@
         </a>
         <div class="proj__hover"><span>Sub-second reasoning over Groq, audio barge-in, and a streaming Vosk-STT + Edge-TTS pipeline.</span></div>
       </li>
-      <li class="proj">
+      <li class="proj" data-image="https://picsum.photos/seed/watchparty/900/680">
         <a href="#" class="proj__link">
           <span class="proj__no">04</span>
           <span class="proj__title">Watch Party</span>
