@@ -72,4 +72,7 @@ function bootSite() {
   gsap.from(".hero__title .word__inner", { yPercent: 110, duration: 1.1, stagger: 0.06, ease: "expo.out" });
   gsap.from(".hero__top, .hero__foot", { opacity: 0, y: 14, duration: 1, delay: .35, stagger: .12, ease: "power3.out" });
   gsap.from(".nav > *", { opacity: 0, y: -10, duration: .9, delay: .2, stagger: .08, ease: "power3.out" });
+
+  const track = document.querySelector(".marquee__track");
+  if (track) gsap.to(track, { xPercent: -50, duration: 28, repeat: -1, ease: "none" });
 }
