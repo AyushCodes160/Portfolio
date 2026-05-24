@@ -4,6 +4,16 @@ import * as THREE from "three";
 const { gsap } = window;
 gsap.registerPlugin(window.ScrollTrigger);
 
+/* ---------- theme toggle ---------- */
+const themeBtn = document.querySelector("[data-theme-toggle]");
+if (themeBtn) {
+  themeBtn.addEventListener("click", () => {
+    const next = document.documentElement.getAttribute("data-theme") === "dark" ? "light" : "dark";
+    document.documentElement.setAttribute("data-theme", next);
+    localStorage.setItem("theme", next);
+  });
+}
+
 /* ---------- loader ---------- */
 const loader = document.querySelector("[data-loader]");
 const countEl = document.querySelector("[data-count]");
@@ -115,14 +125,24 @@ function initThree() {
   const camera = new THREE.PerspectiveCamera(45, 1, 0.1, 100);
   camera.position.set(0, 0, 4.2);
 
+  function colors() {
+    const dark = document.documentElement.getAttribute("data-theme") !== "light";
+    return {
+      shell: dark ? 0xededea : 0x121211,
+      accent: dark ? 0xc4ff3d : 0x1a3df7,
+      pts: dark ? 0xededea : 0x121211,
+    };
+  }
+  let c = colors();
+
   const shell = new THREE.Mesh(
     new THREE.IcosahedronGeometry(1.35, 1),
-    new THREE.MeshBasicMaterial({ color: 0xededea, wireframe: true, transparent: true, opacity: .85 })
+    new THREE.MeshBasicMaterial({ color: c.shell, wireframe: true, transparent: true, opacity: .85 })
   );
   scene.add(shell);
   const core = new THREE.Mesh(
     new THREE.IcosahedronGeometry(.55, 0),
-    new THREE.MeshBasicMaterial({ color: 0xc4ff3d, wireframe: true })
+    new THREE.MeshBasicMaterial({ color: c.accent, wireframe: true })
   );
   scene.add(core);
 
@@ -138,8 +158,16 @@ function initThree() {
     pos[i * 3 + 2] = r * Math.cos(phi);
   }
   ptsGeo.setAttribute("position", new THREE.BufferAttribute(pos, 3));
-  const pts = new THREE.Points(ptsGeo, new THREE.PointsMaterial({ color: 0xededea, size: .015, transparent: true, opacity: .6 }));
+  const pts = new THREE.Points(ptsGeo, new THREE.PointsMaterial({ color: c.pts, size: .015, transparent: true, opacity: .6 }));
   scene.add(pts);
+
+  function applyTheme() {
+    c = colors();
+    shell.material.color.setHex(c.shell);
+    core.material.color.setHex(c.accent);
+    pts.material.color.setHex(c.pts);
+  }
+  new MutationObserver(applyTheme).observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
 
   function resize() {
     const r = canvas.getBoundingClientRect();

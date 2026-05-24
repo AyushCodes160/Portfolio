@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
@@ -11,6 +11,13 @@
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,700;1,9..144,500&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="styles.css" />
+
+  <script>
+    (function () {
+      var t = localStorage.getItem("theme") || "dark";
+      document.documentElement.setAttribute("data-theme", t);
+    })();
+  </script>
 </head>
 <body>
 
@@ -42,6 +49,10 @@
       <a href="#contact" data-magnet>Contact</a>
     </nav>
     <div class="nav__meta">
+      <button class="theme-toggle" data-theme-toggle aria-label="Toggle theme">
+        <svg class="theme-toggle__sun" viewBox="0 0 24 24" width="14" height="14"><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M4.9 19.1L7 17M17 7l2.1-2.1" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+        <svg class="theme-toggle__moon" viewBox="0 0 24 24" width="14" height="14"><path d="M20 14.5A8 8 0 119.5 4a6.5 6.5 0 0010.5 10.5z" fill="none" stroke="currentColor" stroke-width="1.4"/></svg>
+      </button>
       <span class="dot"></span>
       <span data-clock>—</span>
       <span>PUN · IND</span>
