@@ -1,4 +1,5 @@
 // portfolio — Ayush Kumar
+import * as THREE from "three";
 
 const { gsap } = window;
 gsap.registerPlugin(window.ScrollTrigger);
@@ -92,4 +93,86 @@ function bootSite() {
     gsap.from(el, { opacity: 0, y: 12, duration: .8, ease: "power3.out",
       scrollTrigger: { trigger: el, start: "top 90%" } });
   });
+
+  initThree();
+}
+
+/* ---------- three.js — stack scene ---------- */
+function initThree() {
+  const canvas = document.getElementById("three-canvas");
+  if (!canvas) return;
+  const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(45, 1, 0.1, 100);
+  camera.position.set(0, 0, 4.2);
+
+  const shell = new THREE.Mesh(
+    new THREE.IcosahedronGeometry(1.35, 1),
+    new THREE.MeshBasicMaterial({ color: 0xededea, wireframe: true, transparent: true, opacity: .85 })
+  );
+  scene.add(shell);
+  const core = new THREE.Mesh(
+    new THREE.IcosahedronGeometry(.55, 0),
+    new THREE.MeshBasicMaterial({ color: 0xc4ff3d, wireframe: true })
+  );
+  scene.add(core);
+
+  const ptsGeo = new THREE.BufferGeometry();
+  const N = 220;
+  const pos = new Float32Array(N * 3);
+  for (let i = 0; i < N; i++) {
+    const r = 1.9 + Math.random() * .8;
+    const theta = Math.random() * Math.PI * 2;
+    const phi = Math.acos(2 * Math.random() - 1);
+    pos[i * 3] = r * Math.sin(phi) * Math.cos(theta);
+    pos[i * 3 + 1] = r * Math.sin(phi) * Math.sin(theta);
+    pos[i * 3 + 2] = r * Math.cos(phi);
+  }
+  ptsGeo.setAttribute("position", new THREE.BufferAttribute(pos, 3));
+  const pts = new THREE.Points(ptsGeo, new THREE.PointsMaterial({ color: 0xededea, size: .015, transparent: true, opacity: .6 }));
+  scene.add(pts);
+
+  function resize() {
+    const r = canvas.getBoundingClientRect();
+    renderer.setSize(r.width, r.height, false);
+    camera.aspect = r.width / r.height;
+    camera.updateProjectionMatrix();
+  }
+  resize();
+  new ResizeObserver(resize).observe(canvas);
+
+  let dragging = false, lx = 0, ly = 0, rx = 0, ry = 0, trx = 0, tryy = 0;
+  canvas.addEventListener("pointerdown", e => { dragging = true; lx = e.clientX; ly = e.clientY; });
+  window.addEventListener("pointerup", () => dragging = false);
+  window.addEventListener("pointermove", e => {
+    if (!dragging) return;
+    trx += (e.clientY - ly) * .005;
+    tryy += (e.clientX - lx) * .005;
+    lx = e.clientX; ly = e.clientY;
+  });
+
+  let mx = 0, my = 0;
+  canvas.addEventListener("pointermove", e => {
+    const r = canvas.getBoundingClientRect();
+    mx = ((e.clientX - r.left) / r.width - .5) * 2;
+    my = ((e.clientY - r.top) / r.height - .5) * 2;
+  });
+
+  const clock = new THREE.Clock();
+  function loop() {
+    const t = clock.getElapsedTime();
+    rx += (trx - rx) * .08;
+    ry += (tryy - ry) * .08;
+    shell.rotation.x = rx + t * .12 + my * .25;
+    shell.rotation.y = ry + t * .18 + mx * .25;
+    core.rotation.x = -t * .35;
+    core.rotation.y = t * .25;
+    pts.rotation.y = t * .04;
+    pts.rotation.x = t * .02;
+    renderer.render(scene, camera);
+    requestAnimationFrame(loop);
+  }
+  loop();
 }

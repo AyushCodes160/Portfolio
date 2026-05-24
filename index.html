@@ -178,9 +178,38 @@
     </ol>
   </section>
 
+  <section class="stack" id="stack">
+    <div class="stack__head">
+      <div class="about__label">
+        <span class="section-no">03</span>
+        <span class="section-name">Tools of trade</span>
+      </div>
+    </div>
+
+    <div class="stack__grid">
+      <div class="stack__canvas">
+        <canvas id="three-canvas"></canvas>
+        <div class="stack__hint"><span>◐</span> drag to rotate</div>
+      </div>
+      <div class="stack__list">
+        <ul>
+          <li><span class="k">Languages</span><span class="v">TypeScript, Python, SQL, JavaScript</span></li>
+          <li><span class="k">Frontend</span><span class="v">React, React Native, Tailwind, shadcn/ui</span></li>
+          <li><span class="k">Backend</span><span class="v">Node, Express, FastAPI, WebSockets</span></li>
+          <li><span class="k">Databases</span><span class="v">PostgreSQL, MongoDB, Redis, SQLite</span></li>
+          <li><span class="k">AI / ML</span><span class="v">PyTorch, FAISS, LangChain, OpenAI, Groq</span></li>
+          <li><span class="k">Tooling</span><span class="v">Docker, Git, Vosk, Edge-TTS, Streamlit</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
-  <script src="script.js"></script>
+  <script type="importmap">
+    { "imports": { "three": "https://unpkg.com/three@0.160.0/build/three.module.js" } }
+  </script>
+  <script type="module" src="script.js"></script>
 </body>
 </html>
