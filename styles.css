@@ -111,6 +111,21 @@ em{font-style:italic;font-family:var(--serif);font-weight:500}
 
 @media (max-width:880px){ .stack__grid{grid-template-columns:1fr} }
 
+/* ---------- contact ---------- */
+.contact{padding:160px var(--pad) 80px;max-width:var(--max);margin:0 auto}
+.contact__big{font-family:var(--serif);font-weight:300;font-size:clamp(56px,12vw,200px);line-height:.9;letter-spacing:-.035em;margin:24px 0 60px}
+.contact__big em{color:var(--accent)}
+.contact__mail{display:inline-flex;align-items:center;gap:18px;font-family:var(--serif);font-style:italic;font-weight:500;font-size:clamp(24px,3.4vw,44px);border-bottom:1px solid var(--ink);padding-bottom:6px}
+.contact__mail svg{transition:transform .35s var(--ease)}
+.contact__mail:hover svg{transform:translate(4px,-4px)}
+
+.contact__social{list-style:none;display:flex;flex-wrap:wrap;gap:28px;margin-top:80px}
+.contact__social a{font-family:var(--mono);font-size:12px;text-transform:uppercase;letter-spacing:.14em;color:var(--ink-dim)}
+.contact__social a:hover{color:var(--ink)}
+
+/* ---------- footer ---------- */
+.foot{display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap;padding:24px var(--pad);border-top:1px solid var(--line);font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.14em;color:var(--ink-dim)}
+
 /* ---------- grain ---------- */
 .grain{
   position:fixed;inset:-50%;z-index:150;pointer-events:none;opacity:.08;mix-blend-mode:overlay;

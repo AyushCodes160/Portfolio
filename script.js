@@ -94,6 +94,13 @@ function bootSite() {
       scrollTrigger: { trigger: el, start: "top 90%" } });
   });
 
+  gsap.utils.toArray(".contact__big .word__inner").forEach((el, i) => {
+    gsap.fromTo(el, { yPercent: 110 }, {
+      yPercent: 0, duration: 1.1, ease: "expo.out", delay: i * .05,
+      scrollTrigger: { trigger: ".contact__big", start: "top 75%" }
+    });
+  });
+
   initThree();
 }
 
