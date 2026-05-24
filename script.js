@@ -25,6 +25,41 @@ if (loader) {
   bootSite();
 }
 
+/* ---------- smooth scroll ---------- */
+const lenis = new window.Lenis({ duration: 1.1, easing: t => Math.min(1, 1.001 - Math.pow(2, -10 * t)) });
+gsap.ticker.add(t => lenis.raf(t * 1000));
+gsap.ticker.lagSmoothing(0);
+
+/* ---------- custom cursor ---------- */
+const cursor = document.querySelector("[data-cursor]");
+const cx = { v: window.innerWidth / 2 };
+const cy = { v: window.innerHeight / 2 };
+let tx = cx.v, ty = cy.v;
+window.addEventListener("mousemove", e => { tx = e.clientX; ty = e.clientY; });
+gsap.ticker.add(() => {
+  cx.v += (tx - cx.v) * 0.18;
+  cy.v += (ty - cy.v) * 0.18;
+  if (cursor) cursor.style.transform = `translate(${cx.v}px,${cy.v}px)`;
+});
+
+document.querySelectorAll("a, button, [data-magnet]").forEach(el => {
+  el.addEventListener("mouseenter", () => cursor && cursor.classList.add("is-hover"));
+  el.addEventListener("mouseleave", () => cursor && cursor.classList.remove("is-hover"));
+});
+
+/* ---------- magnet links ---------- */
+document.querySelectorAll("[data-magnet]").forEach(el => {
+  el.addEventListener("mousemove", e => {
+    const r = el.getBoundingClientRect();
+    const x = e.clientX - (r.left + r.width / 2);
+    const y = e.clientY - (r.top + r.height / 2);
+    gsap.to(el, { x: x * 0.25, y: y * 0.25, duration: .5, ease: "power3.out" });
+  });
+  el.addEventListener("mouseleave", () => {
+    gsap.to(el, { x: 0, y: 0, duration: .6, ease: "elastic.out(1, .4)" });
+  });
+});
+
 /* ---------- clock ---------- */
 function tickClock() {
   const t = new Date().toLocaleTimeString("en-IN", { hour: "2-digit", minute: "2-digit", hour12: false, timeZone: "Asia/Kolkata" });
