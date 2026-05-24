@@ -1,1 +1,28 @@
-/* portfolio — Ayush Kumar */
+/* ---------- tokens ---------- */
+:root{
+  --bg:#0c0c0d;
+  --bg-2:#0a0a0b;
+  --ink:#ededea;
+  --ink-dim:#8c8c87;
+  --line:rgba(237,237,234,.12);
+  --accent:#c4ff3d;
+  --accent-ink:#000;
+  --serif:"Fraunces", ui-serif, Georgia, serif;
+  --grotesk:"Space Grotesk", system-ui, sans-serif;
+  --mono:"JetBrains Mono", ui-monospace, monospace;
+  --pad: clamp(20px, 4vw, 56px);
+  --max: 1600px;
+  --ease: cubic-bezier(.7,0,.2,1);
+}
+
+/* ---------- reset ---------- */
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:var(--bg);color:var(--ink);font-family:var(--grotesk);-webkit-font-smoothing:antialiased}
+body{overflow-x:hidden;line-height:1.5;font-size:15px;letter-spacing:.005em}
+a{color:inherit;text-decoration:none}
+img,video{max-width:100%;display:block}
+sup{font-size:.55em;vertical-align:super;margin-left:.2em;color:var(--ink-dim)}
+em{font-style:italic;font-family:var(--serif);font-weight:500}
+.u{border-bottom:1px solid currentColor;padding-bottom:1px}
+
+::selection{background:var(--accent);color:var(--accent-ink)}
