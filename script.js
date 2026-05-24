@@ -83,6 +83,11 @@ function bootSite() {
       scrollTrigger: { trigger: el, start: "top 85%" } });
   });
 
+  gsap.utils.toArray(".proj").forEach(el => {
+    gsap.from(el, { opacity: 0, y: 30, duration: .9, ease: "power3.out",
+      scrollTrigger: { trigger: el, start: "top 90%" } });
+  });
+
   gsap.utils.toArray(".about__label").forEach(el => {
     gsap.from(el, { opacity: 0, y: 12, duration: .8, ease: "power3.out",
       scrollTrigger: { trigger: el, start: "top 90%" } });
