@@ -8,7 +8,7 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Poetsen+One&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="styles.css" />
 
@@ -20,6 +20,16 @@
   </script>
 </head>
 <body>
+
+  <div class="sky" aria-hidden="true">
+    <div class="sun"></div>
+    <div class="cloud-layer cloud-layer--back"></div>
+    <div class="cloud-layer cloud-layer--mid"></div>
+    <div class="cloud-layer cloud-layer--front"></div>
+    <div class="plane"></div>
+  </div>
+
+  <div class="page">
 
   <header class="nav">
     <a href="#top" class="nav__brand">
@@ -77,9 +87,9 @@
         </a>
       </div>
 
-      <div class="logos">
-        <p class="logos__label">Stack I reach for</p>
-        <div class="logos__row">
+      <div class="chips">
+        <p class="chips__label">Stack I reach for</p>
+        <div class="chips__row">
           <span class="chip">TypeScript</span>
           <span class="chip">React</span>
           <span class="chip">Python</span>
@@ -234,6 +244,8 @@
       </form>
     </div>
   </section>
+
+  </div><!-- /.page -->
 
   <footer class="foot">
     <span>© 2026 — Ayush Kumar</span>

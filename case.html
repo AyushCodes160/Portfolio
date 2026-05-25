@@ -1,31 +1,35 @@
 <!doctype html>
-<html lang="en" data-theme="dark">
+<html lang="en" data-theme="light">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>Case — Ayush Kumar</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,700;1,9..144,500&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Poetsen+One&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css" />
   <script>
     (function(){
-      var t = localStorage.getItem("theme") || "dark";
+      var t = localStorage.getItem("theme") || "light";
       document.documentElement.setAttribute("data-theme", t);
     })();
   </script>
 </head>
 <body>
 
-  <div class="cursor" data-cursor>
-    <div class="cursor__dot"></div>
-    <div class="cursor__ring"></div>
+  <div class="sky" aria-hidden="true">
+    <div class="sun"></div>
+    <div class="cloud-layer cloud-layer--back"></div>
+    <div class="cloud-layer cloud-layer--mid"></div>
+    <div class="cloud-layer cloud-layer--front"></div>
+    <div class="plane"></div>
   </div>
-  <div class="grain" aria-hidden="true"></div>
+
+  <div class="page">
 
   <header class="nav">
     <a href="index.html" class="nav__brand" data-magnet data-page-link>
-      <span class="nav__mark">◐</span>
+      <span class="nav__mark">AK</span>
       <span>Ayush Kumar</span>
     </a>
     <nav class="nav__links">
@@ -39,9 +43,7 @@
         <svg class="theme-toggle__sun" viewBox="0 0 24 24" width="14" height="14"><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M4.9 19.1L7 17M17 7l2.1-2.1" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
         <svg class="theme-toggle__moon" viewBox="0 0 24 24" width="14" height="14"><path d="M20 14.5A8 8 0 119.5 4a6.5 6.5 0 0010.5 10.5z" fill="none" stroke="currentColor" stroke-width="1.4"/></svg>
       </button>
-      <span class="dot"></span>
       <span data-clock>—</span>
-      <span>PUN · IND</span>
     </div>
   </header>
 
@@ -95,13 +97,15 @@
         <span class="case__next-label">Next case</span>
         <a href="case.html?p=pokedex" data-page-link><span class="case__next-title" data-case-next>Pokedex →</span></a>
       </div>
-      <a href="index.html#contact" data-magnet data-page-link>Work with me ↗</a>
+      <a href="index.html#contact" data-page-link>Work with me ↗</a>
     </div>
   </main>
 
+  </div><!-- /.page -->
+
   <footer class="foot">
     <span>© 2026 — Ayush Kumar</span>
-    <span>NST · ADYPU Pune. Set in Fraunces &amp; Space Grotesk.</span>
+    <span>NST · ADYPU Pune · <a href="https://github.com/AyushCodes160" target="_blank" rel="noopener">GitHub</a></span>
     <span data-clock>—</span>
   </footer>
 
