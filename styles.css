@@ -121,10 +121,13 @@ html[data-theme="dark"] .sun{filter:drop-shadow(0 0 24px rgba(255,210,61,.35));o
 .nav__brand{display:inline-flex;align-items:center;gap:10px;font-family:var(--display);font-size:18px;color:var(--ink);letter-spacing:.5px}
 .nav__mark{
   display:inline-flex;align-items:center;justify-content:center;
-  width:28px;height:28px;border-radius:50%;
+  width:32px;height:32px;border-radius:50%;
   background:var(--ink);color:var(--accent);
   font-family:var(--display);font-size:13px;letter-spacing:0;
+  overflow:hidden;border:2px solid var(--ink);
+  flex-shrink:0;
 }
+.nav__mark img{width:100%;height:100%;object-fit:cover;image-rendering:pixelated}
 .nav__links{display:flex;align-items:center;gap:18px;color:var(--ink-mid);font-weight:500}
 .nav__links a{position:relative;transition:color .2s}
 .nav__links a:hover{color:var(--ink)}
@@ -162,14 +165,23 @@ html[data-theme="dark"] .theme-toggle__moon{transform:translateY(0) rotate(0);op
   box-shadow:-4px 0 0 var(--ink);
 }
 .avatar{
-  width:104px;height:104px;border-radius:50%;
+  width:128px;height:128px;border-radius:50%;
   margin:0 auto 18px;
   background:linear-gradient(135deg, #1a1f55 0%, #3a4172 100%);
   color:var(--accent);
-  display:flex;align-items:center;justify-content:center;
   font-family:var(--display);font-size:38px;letter-spacing:.5px;
   border:4px solid var(--ink);
   box-shadow:0 4px 0 var(--ink);
+  overflow:hidden;
+  position:relative;
+}
+.avatar img{
+  position:absolute;inset:0;
+  width:100%;height:100%;
+  object-fit:cover;object-position:center 30%;
+  border-radius:50%;
+  image-rendering:pixelated;
+  display:block;
 }
 .name{
   font-family:var(--display);font-size:36px;letter-spacing:.3px;color:var(--ink);
