@@ -359,6 +359,14 @@ html[data-theme="light"] .theme-toggle__sun{transform:translateY(0) rotate(0);op
 .case{padding:140px var(--pad) 80px;max-width:var(--max);margin:0 auto}
 .case__back{font-family:var(--mono);font-size:11px;letter-spacing:.04em;color:var(--ink-mid);display:inline-flex;gap:8px;align-items:center;margin-bottom:64px;text-transform:uppercase}
 .case__back:hover{color:var(--ink)}
+.case__repo{
+  display:inline-flex;align-items:center;gap:8px;
+  font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;
+  color:var(--ink);border:1px solid var(--line-strong);
+  padding:10px 16px;border-radius:999px;margin-bottom:64px;
+  transition:border-color .3s var(--ease), background .3s var(--ease), color .3s var(--ease), transform .3s var(--ease);
+}
+.case__repo:hover{border-color:var(--ink);background:var(--ink);color:var(--bg);transform:translateY(-1px)}
 .case__title{
   font-family:var(--serif);font-weight:300;
   font-size:clamp(56px,10vw,168px);line-height:.95;letter-spacing:-.035em;
@@ -369,7 +377,7 @@ html[data-theme="light"] .theme-toggle__sun{transform:translateY(0) rotate(0);op
   max-width:60ch;
   font-family:var(--serif);font-weight:300;font-style:italic;
   font-size:clamp(20px,2.2vw,28px);line-height:1.4;color:var(--ink-mid);
-  margin-bottom:64px;
+  margin-bottom:32px;
 }
 .case__meta{
   display:grid;grid-template-columns:repeat(4,1fr);gap:32px;

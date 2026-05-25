@@ -51,6 +51,8 @@
     <h1 class="case__title" data-case-title>AskMySource</h1>
     <p class="case__sub" data-case-sub>A multimodal RAG system that ingests Git repos, PDFs, and URLs, then answers questions over them with secure on-device LLM inference.</p>
 
+    <a class="case__repo" data-case-repo href="#" target="_blank" rel="noopener">View source on GitHub ↗</a>
+
     <ul class="case__meta">
       <li><span>Role</span><b data-case-role>Design, full-stack, retrieval</b></li>
       <li><span>Year</span><b data-case-year>2026</b></li>
@@ -115,6 +117,7 @@
         stack: "FastAPI · Streamlit · PyTorch · FAISS",
         hero: "img/AskMySource1.png",
         gallery: ["img/AskMySource2.png", "img/AskMySource3.png", "img/AskMySource4.png", "img/AskMySource1.png"],
+        repo: "https://github.com/AyushCodes160/AskMySource",
         p1: "Most RAG demos eat one type of source and call it a system. I wanted a single tool that could chew Git repositories, long PDFs, and arbitrary URLs — and answer with sources, locally, without an API key.",
         p2: "FastAPI for the ingest pipeline, semantic chunking tuned per source-type, FAISS for similarity search, and TinyLlama running locally for the generation step. A Streamlit front-end keeps the UX honest while I iterate on retrieval quality.",
         p3: "Useful enough that I now reach for it on every doc-heavy side-project. Working notes: chunking strategy matters more than the model, and a fast UI matters more than either.",
@@ -128,6 +131,7 @@
         stack: "React 18 · TypeScript · Express · MongoDB · Prisma",
         hero: "img/pokedex1.png",
         gallery: ["img/pokedex2.png", "img/pokedex3.png", "img/pokedex4.png", "img/pokedex5.png"],
+        repo: "https://github.com/AyushCodes160/pokedex",
         p1: "Most Pokédex projects stop at a list view. I wanted to build the bit that actually feels like the game — turn-based battles, type matchups, status effects, and the small dopamine hit of saving a team you put together.",
         p2: "React 18 + TypeScript on the front, Node/Express + MongoDB Atlas (via Prisma) on the back. The battle engine is a small state machine in TS, with the opponent driven by the PokéAPI. JWT auth handles users; shadcn/ui + Tailwind handle the rest.",
         p3: "It taught me more about state-machine design and game-loop pacing than any course. The UI is fast, the battles feel fair, and the codebase is small enough to keep extending on weekends.",
@@ -141,6 +145,7 @@
         stack: "React · FastAPI · WebSockets · Redis · SQLite · Groq",
         hero: "img/voiceagent1.png",
         gallery: ["img/voiceagent2.png", "img/voiceagent3.png", "img/voiceagent1.png", "img/voiceagent2.png"],
+        repo: "https://github.com/AyushCodes160/Real-Time-Multilingual-Voice-AI-Agent",
         p1: "Most voice agents feel like SMS with a microphone in front. I wanted one that listens while you’re talking, replies in under a second, and survives interruption gracefully — across languages.",
         p2: "Vosk STT streams audio chunks over WebSockets, Groq handles sub-second reasoning, and Edge-TTS streams audio back in parallel. Redis tracks per-session state; SQLite stores call history. Background campaigning runs out-of-band so the live conversation stays responsive.",
         p3: "The barge-in detection (cutting the TTS the moment the user starts speaking) is the single feature that made it feel real instead of demo-grade.",
@@ -154,6 +159,7 @@
         stack: "React · Express · Socket.io · MongoDB · Tailwind",
         hero: "img/watchparty1.png",
         gallery: ["img/watchparty2.png", "img/watchparty3.png", "img/watchparty4.png", "img/watchparty1.png"],
+        repo: "https://github.com/AyushCodes160/YouTube-Watch-Party-System",
         p1: "Watching a video together over a call always devolves into someone counting down from three. I wanted that to be a button.",
         p2: "Socket.io syncs playback state across every client in a room — play, pause, seek, rate changes. Rooms persist; Google OAuth handles identity; the chat lane sits next to the player without stealing focus.",
         p3: "The fun part wasn’t the sync (Socket.io makes that almost free) — it was making sure the host’s buffering didn’t make everyone else lag, and that the chat input never stole the keyboard from the player.",
@@ -172,6 +178,7 @@
     document.querySelector("[data-case-g2]").style.backgroundImage = `url('${d.gallery[1]}')`;
     document.querySelector("[data-case-g3]").style.backgroundImage = `url('${d.gallery[2]}')`;
     document.querySelector("[data-case-g4]").style.backgroundImage = `url('${d.gallery[3]}')`;
+    document.querySelector("[data-case-repo]").setAttribute("href", d.repo);
     document.querySelector("[data-case-p1]").textContent = d.p1;
     document.querySelector("[data-case-p2]").textContent = d.p2;
     document.querySelector("[data-case-p3]").textContent = d.p3;
