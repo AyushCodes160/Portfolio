@@ -399,6 +399,7 @@ html[data-theme="dark"] .cform input, html[data-theme="dark"] .cform textarea{ba
 }
 .cform__submit:hover{transform:translateY(-2px);box-shadow:0 6px 0 var(--accent)}
 .cform__submit:active{transform:translateY(2px);box-shadow:0 2px 0 var(--accent)}
+html[data-theme="dark"] .cform__submit{color:#0d1140}
 .cform__submit svg{width:14px;height:14px}
 @media (max-width:560px){ .cform__row{grid-template-columns:1fr} }
 
