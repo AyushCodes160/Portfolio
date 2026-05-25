@@ -90,13 +90,13 @@ html[data-theme="dark"] .sun{filter:drop-shadow(0 0 24px rgba(255,210,61,.35));o
 @keyframes drift{ from{transform:translateX(0)} to{transform:translateX(-33.3333%)} }
 
 .plane{
-  position:absolute;top:14vh;left:-120px;
-  width:96px;height:auto;
+  position:absolute;top:14vh;left:-140px;
+  width:120px;height:auto;
   animation:fly 38s linear infinite;
   filter:drop-shadow(3px 4px 0 rgba(13,17,64,.18));
   pointer-events:none;
 }
-.plane svg{display:block;width:100%;height:auto;image-rendering:pixelated}
+.plane img{display:block;width:100%;height:auto;image-rendering:pixelated;image-rendering:crisp-edges}
 @keyframes fly{
   0%   { left:-120px; top:12vh; }
   50%  { top:7vh; }
