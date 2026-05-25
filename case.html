@@ -113,7 +113,8 @@
         role: "Design, full-stack, retrieval",
         year: "April 2026",
         stack: "FastAPI · Streamlit · PyTorch · FAISS",
-        img: "askmysource",
+        hero: "img/AskMySource1.png",
+        gallery: ["img/AskMySource2.png", "img/AskMySource3.png", "img/AskMySource4.png", "img/AskMySource1.png"],
         p1: "Most RAG demos eat one type of source and call it a system. I wanted a single tool that could chew Git repositories, long PDFs, and arbitrary URLs — and answer with sources, locally, without an API key.",
         p2: "FastAPI for the ingest pipeline, semantic chunking tuned per source-type, FAISS for similarity search, and TinyLlama running locally for the generation step. A Streamlit front-end keeps the UX honest while I iterate on retrieval quality.",
         p3: "Useful enough that I now reach for it on every doc-heavy side-project. Working notes: chunking strategy matters more than the model, and a fast UI matters more than either.",
@@ -125,7 +126,8 @@
         role: "Design, full-stack, game-state",
         year: "March 2026",
         stack: "React 18 · TypeScript · Express · MongoDB · Prisma",
-        img: "pokedex",
+        hero: "img/pokedex1.png",
+        gallery: ["img/pokedex2.png", "img/pokedex3.png", "img/pokedex4.png", "img/pokedex5.png"],
         p1: "Most Pokédex projects stop at a list view. I wanted to build the bit that actually feels like the game — turn-based battles, type matchups, status effects, and the small dopamine hit of saving a team you put together.",
         p2: "React 18 + TypeScript on the front, Node/Express + MongoDB Atlas (via Prisma) on the back. The battle engine is a small state machine in TS, with the opponent driven by the PokéAPI. JWT auth handles users; shadcn/ui + Tailwind handle the rest.",
         p3: "It taught me more about state-machine design and game-loop pacing than any course. The UI is fast, the battles feel fair, and the codebase is small enough to keep extending on weekends.",
@@ -137,7 +139,8 @@
         role: "Design, full-stack, audio pipeline",
         year: "March 2026",
         stack: "React · FastAPI · WebSockets · Redis · SQLite · Groq",
-        img: "voiceagent",
+        hero: "img/voiceagent1.png",
+        gallery: ["img/voiceagent2.png", "img/voiceagent3.png", "img/voiceagent1.png", "img/voiceagent2.png"],
         p1: "Most voice agents feel like SMS with a microphone in front. I wanted one that listens while you’re talking, replies in under a second, and survives interruption gracefully — across languages.",
         p2: "Vosk STT streams audio chunks over WebSockets, Groq handles sub-second reasoning, and Edge-TTS streams audio back in parallel. Redis tracks per-session state; SQLite stores call history. Background campaigning runs out-of-band so the live conversation stays responsive.",
         p3: "The barge-in detection (cutting the TTS the moment the user starts speaking) is the single feature that made it feel real instead of demo-grade.",
@@ -149,7 +152,8 @@
         role: "Design, full-stack, real-time",
         year: "March 2026",
         stack: "React · Express · Socket.io · MongoDB · Tailwind",
-        img: "watchparty",
+        hero: "img/watchparty1.png",
+        gallery: ["img/watchparty2.png", "img/watchparty3.png", "img/watchparty4.png", "img/watchparty1.png"],
         p1: "Watching a video together over a call always devolves into someone counting down from three. I wanted that to be a button.",
         p2: "Socket.io syncs playback state across every client in a room — play, pause, seek, rate changes. Rooms persist; Google OAuth handles identity; the chat lane sits next to the player without stealing focus.",
         p3: "The fun part wasn’t the sync (Socket.io makes that almost free) — it was making sure the host’s buffering didn’t make everyone else lag, and that the chat input never stole the keyboard from the player.",
@@ -163,11 +167,11 @@
     document.querySelector("[data-case-role]").textContent = d.role;
     document.querySelector("[data-case-year]").textContent = d.year;
     document.querySelector("[data-case-stack]").textContent = d.stack;
-    document.querySelector("[data-case-hero]").style.backgroundImage = `url('https://picsum.photos/seed/${d.img}/1600/900')`;
-    document.querySelector("[data-case-g1]").style.backgroundImage = `url('https://picsum.photos/seed/${d.img}-1/1600/900')`;
-    document.querySelector("[data-case-g2]").style.backgroundImage = `url('https://picsum.photos/seed/${d.img}-2/900/1200')`;
-    document.querySelector("[data-case-g3]").style.backgroundImage = `url('https://picsum.photos/seed/${d.img}-3/1200/900')`;
-    document.querySelector("[data-case-g4]").style.backgroundImage = `url('https://picsum.photos/seed/${d.img}-4/1200/900')`;
+    document.querySelector("[data-case-hero]").style.backgroundImage = `url('${d.hero}')`;
+    document.querySelector("[data-case-g1]").style.backgroundImage = `url('${d.gallery[0]}')`;
+    document.querySelector("[data-case-g2]").style.backgroundImage = `url('${d.gallery[1]}')`;
+    document.querySelector("[data-case-g3]").style.backgroundImage = `url('${d.gallery[2]}')`;
+    document.querySelector("[data-case-g4]").style.backgroundImage = `url('${d.gallery[3]}')`;
     document.querySelector("[data-case-p1]").textContent = d.p1;
     document.querySelector("[data-case-p2]").textContent = d.p2;
     document.querySelector("[data-case-p3]").textContent = d.p3;
