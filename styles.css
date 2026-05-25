@@ -90,18 +90,22 @@ html[data-theme="dark"] .sun{filter:drop-shadow(0 0 24px rgba(255,210,61,.35));o
 @keyframes drift{ from{transform:translateX(0)} to{transform:translateX(-33.3333%)} }
 
 .plane{
-  position:absolute;top:14vh;left:-80px;
-  width:60px;height:60px;
-  background:url("img/pixel/airplanes.png") no-repeat 0 0;
-  background-size:360px 230px;
-  animation:fly 28s linear infinite;
-  filter:drop-shadow(2px 4px 0 rgba(13,17,64,.25));
+  position:absolute;top:14vh;left:-120px;
+  width:96px;height:auto;
+  animation:fly 38s linear infinite;
+  filter:drop-shadow(3px 4px 0 rgba(13,17,64,.18));
+  pointer-events:none;
 }
+.plane svg{display:block;width:100%;height:auto;image-rendering:pixelated}
 @keyframes fly{
-  0%   { left:-80px;  top:14vh; transform:rotate(0deg) }
-  50%  { top:9vh; }
-  100% { left:calc(100% + 80px); top:18vh; transform:rotate(0deg) }
+  0%   { left:-120px; top:12vh; }
+  50%  { top:7vh; }
+  100% { left:calc(100% + 120px); top:16vh; }
 }
+
+/* tint the beige clouds toward white so they read as sky clouds */
+.cloud-layer{ filter:brightness(1.25) saturate(.25) drop-shadow(0 4px 0 rgba(13,17,64,.06)) }
+html[data-theme="dark"] .cloud-layer{ filter:brightness(.55) saturate(.2) }
 
 /* page sits above sky */
 .page{position:relative;z-index:1}
